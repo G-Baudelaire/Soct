@@ -9,12 +9,14 @@
 run                 { return RUN; }
 bind                { return BIND; }
 print               { return PRINT; }
+match               { return MATCH; };
 [a-zA-Z]+           { return CHANNEL; }
 \(                  { return LPARENTHESES; }
 \)                  { return RPARENTHESES; }
 \{                  { return LBRACE; }
 \}                  { return RBRACE; }
 !                   { return SEND; }
+\?\*                  { return REPLICATED_RECEIVE; }
 \?                  { return RECEIVE; }
 \|                  { return COMPOSITION; }
 ,                   { return COMMA; }

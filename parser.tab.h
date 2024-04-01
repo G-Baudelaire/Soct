@@ -42,19 +42,17 @@
      CHANNEL = 258,
      RUN = 259,
      BIND = 260,
-     LBRACKET = 261,
-     RBRACKET = 262,
-     EQUALS = 263,
-     PRINT = 264,
-     COMMA = 265,
-     INACTION = 266,
-     LPARENTHESES = 267,
-     RPARENTHESES = 268,
-     LBRACE = 269,
-     RBRACE = 270,
-     SEND = 271,
-     RECEIVE = 272,
-     COMPOSITION = 273
+     PRINT = 261,
+     COMMA = 262,
+     MATCH = 263,
+     LPARENTHESES = 264,
+     RPARENTHESES = 265,
+     LBRACE = 266,
+     RBRACE = 267,
+     SEND = 268,
+     REPLICATED_RECEIVE = 269,
+     RECEIVE = 270,
+     COMPOSITION = 271
    };
 #endif
 
