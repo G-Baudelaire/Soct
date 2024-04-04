@@ -1,6 +1,7 @@
 %{
 #include <string.h>
-#include "parser.tab.h"
+#include "../bison_files/parser.tab.h"
+
 %}
 
 %option noyywrap

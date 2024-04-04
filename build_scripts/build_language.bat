@@ -1,8 +1,15 @@
 @echo off
-rm lex.yy.c
+rm soct.exe
+
+cd bison_files
 rm parser.tab.c
 rm parser.tab.h
-rm soct.exe
 bison -d parser.y
+cd ..
+
+cd flex_files
+rm lex.yy.c
 flex lexer.l
-gcc -o soct parser.tab.c lex.yy.c main.c
+cd ..
+
+gcc -o soct bison_files\parser.tab.c flex_files\lex.yy.c main.c

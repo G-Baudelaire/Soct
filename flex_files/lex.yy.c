@@ -389,8 +389,9 @@ char *yytext;
 #define INITIAL 0
 #line 2 "lexer.l"
 #include <string.h>
-#include "parser.tab.h"
-#line 394 "lex.yy.c"
+#include "../bison_files/parser.tab.h"
+
+#line 395 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -541,9 +542,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 8 "lexer.l"
+#line 9 "lexer.l"
 
-#line 547 "lex.yy.c"
+#line 548 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -628,82 +629,82 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 9 "lexer.l"
+#line 10 "lexer.l"
 { return RUN; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 10 "lexer.l"
+#line 11 "lexer.l"
 { return BIND; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 11 "lexer.l"
+#line 12 "lexer.l"
 { return PRINT; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 12 "lexer.l"
+#line 13 "lexer.l"
 { return MATCH; };
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 13 "lexer.l"
+#line 14 "lexer.l"
 { return CHANNEL; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 14 "lexer.l"
+#line 15 "lexer.l"
 { return LPARENTHESES; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 15 "lexer.l"
+#line 16 "lexer.l"
 { return RPARENTHESES; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 16 "lexer.l"
+#line 17 "lexer.l"
 { return LBRACE; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 17 "lexer.l"
+#line 18 "lexer.l"
 { return RBRACE; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 18 "lexer.l"
+#line 19 "lexer.l"
 { return SEND; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 19 "lexer.l"
+#line 20 "lexer.l"
 { return REPLICATED_RECEIVE; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 20 "lexer.l"
+#line 21 "lexer.l"
 { return RECEIVE; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 21 "lexer.l"
+#line 22 "lexer.l"
 { return COMPOSITION; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 22 "lexer.l"
+#line 23 "lexer.l"
 { return COMMA; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 23 "lexer.l"
+#line 24 "lexer.l"
 { /* Ignore whitespace */ }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 24 "lexer.l"
+#line 25 "lexer.l"
 { /* Handle unexpected characters more gracefully. */
                       fprintf(stderr, "Unexpected character: %s\n", yytext);
                       return 0;
@@ -711,10 +712,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 28 "lexer.l"
+#line 29 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 718 "lex.yy.c"
+#line 719 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1600,6 +1601,6 @@ int main()
 	return 0;
 	}
 #endif
-#line 28 "lexer.l"
+#line 29 "lexer.l"
 
 
