@@ -4,7 +4,8 @@ rm soct.exe
 cd bison_files
 rm parser.tab.c
 rm parser.tab.h
-bison -d parser.y
+rm parser.output
+bison -d -v parser.y
 cd ..
 
 cd flex_files

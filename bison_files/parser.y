@@ -22,8 +22,11 @@
 
 %%/* Grammar rules and actions follow */
 
-INPUT:  /* empty */
-     | RUN EXPRESSION
+PROGRAM: /* empty */
+       | INPUT
+;
+
+INPUT: RUN EXPRESSION
      | INPUT RUN EXPRESSION
 ;
 
