@@ -1,0 +1,3 @@
+build_scripts\compile_bison.bat
+build_scripts\compile_flex.bat
+build_scripts\compile_soct.bat
