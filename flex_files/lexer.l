@@ -14,8 +14,8 @@ match               { return MATCH; };
 [a-zA-Z]+           { return CHANNEL; }
 \(                  { return LPARENTHESES; }
 \)                  { return RPARENTHESES; }
-\{                  { return LBRACE; }
-\}                  { return RBRACE; }
+\[                  { return LBRACKET; }
+\]                  { return RBRACKET; }
 !                   { return SEND; }
 \?\*                  { return REPLICATED_RECEIVE; }
 \?                  { return RECEIVE; }
