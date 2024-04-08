@@ -6,7 +6,7 @@
 #include "../abstract_syntax_tree/nodes.h"
 
 using namespace std;
-pgm *root;
+Program *root;
 extern int yyerror(char *s);
 extern int yylex(void);
 
@@ -15,7 +15,7 @@ extern int yylex(void);
 %start PROGRAM
 
 %union {
-  pgm *prog;
+  Program *prog;
 }
 
 %token CHANNEL
@@ -36,8 +36,8 @@ extern int yylex(void);
 
 %%/* Grammar rules and actions follow */
 
-PROGRAM: /* empty */ {$$ = new pgm(); root = $$;}
-       | STATEMENT_LIST {$$ = new pgm(); root = $$;}
+PROGRAM: /* empty */ {$$ = new Program(); root = $$;}
+       | STATEMENT_LIST {$$ = new Program(); root = $$;}
 ;
 
 STATEMENT_LIST: RUN EXPRESSION

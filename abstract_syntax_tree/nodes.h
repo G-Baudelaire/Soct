@@ -14,9 +14,9 @@
 
 using namespace std;
 
-class pgm {
+class Program {
 };
 
 // the object at the base of our tree
 extern map<string, float> idTable;
-extern pgm *root;
+extern Program *root;

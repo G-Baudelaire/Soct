@@ -72,7 +72,7 @@
 #include "../abstract_syntax_tree/nodes.h"
 
 using namespace std;
-pgm *root;
+Program *root;
 extern int yyerror(char *s);
 extern int yylex(void);
 
@@ -1097,13 +1097,13 @@ yyreduce:
     {
   case 2: /* PROGRAM: %empty  */
 #line 39 "parser.ypp"
-                     {(yyval.prog) = new pgm(); root = (yyval.prog);}
+                     {(yyval.prog) = new Program(); root = (yyval.prog);}
 #line 1102 "parser.tab.cpp"
     break;
 
   case 3: /* PROGRAM: STATEMENT_LIST  */
 #line 40 "parser.ypp"
-                        {(yyval.prog) = new pgm(); root = (yyval.prog);}
+                        {(yyval.prog) = new Program(); root = (yyval.prog);}
 #line 1108 "parser.tab.cpp"
     break;
 

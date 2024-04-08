@@ -78,7 +78,7 @@ union YYSTYPE
 {
 #line 17 "parser.ypp"
 
-  pgm *prog;
+  Program *prog;
 
 #line 84 "parser.tab.hpp"
 
