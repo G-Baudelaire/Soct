@@ -1,6 +1,6 @@
 cd bison_files
-rm parser.tab.c
-rm parser.tab.h
+rm parser.tab.cpp
+rm parser.tab.hpp
 rm parser.output
-win_bison -d -v parser.y
+win_bison -d -v parser.ypp
 cd ..

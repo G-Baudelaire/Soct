@@ -67,13 +67,17 @@
 
 
 /* First part of user prologue.  */
-#line 5 "parser.y"
+#line 5 "parser.ypp"
 
-extern int yylex(void);
+#include "../abstract_syntax_tree/nodes.h"
+
+using namespace std;
+pgm *root;
 extern int yyerror(char *s);
+extern int yylex(void);
 
 
-#line 77 "parser.tab.c"
+#line 81 "parser.tab.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -96,7 +100,7 @@ extern int yyerror(char *s);
 #  endif
 # endif
 
-#include "parser.tab.h"
+#include "parser.tab.hpp"
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -120,7 +124,7 @@ enum yysymbol_kind_t
   YYSYMBOL_COMPOSITION = 16,               /* COMPOSITION  */
   YYSYMBOL_YYACCEPT = 17,                  /* $accept  */
   YYSYMBOL_PROGRAM = 18,                   /* PROGRAM  */
-  YYSYMBOL_INPUT = 19,                     /* INPUT  */
+  YYSYMBOL_STATEMENT_LIST = 19,            /* STATEMENT_LIST  */
   YYSYMBOL_INACTION = 20,                  /* INACTION  */
   YYSYMBOL_SOLO_OBJECT = 21,               /* SOLO_OBJECT  */
   YYSYMBOL_SOLO = 22,                      /* SOLO  */
@@ -497,9 +501,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    28,    28,    29,    32,    33,    36,    39,    40,    43,
-      44,    45,    48,    51,    52,    53,    54,    55,    58,    59,
-      62,    63
+       0,    39,    39,    40,    43,    44,    47,    50,    51,    54,
+      55,    56,    59,    62,    63,    64,    65,    66,    69,    70,
+      73,    74
 };
 #endif
 
@@ -518,8 +522,8 @@ static const char *const yytname[] =
   "\"end of file\"", "error", "\"invalid token\"", "CHANNEL", "RUN",
   "BIND", "PRINT", "COMMA", "MATCH", "LPARENTHESES", "RPARENTHESES",
   "LBRACKET", "RBRACKET", "SEND", "REPLICATED_RECEIVE", "RECEIVE",
-  "COMPOSITION", "$accept", "PROGRAM", "INPUT", "INACTION", "SOLO_OBJECT",
-  "SOLO", "EXPRESSION", "AGENT", "INNER_LIST", "LIST", YY_NULLPTR
+  "COMPOSITION", "$accept", "PROGRAM", "STATEMENT_LIST", "INACTION",
+  "SOLO_OBJECT", "SOLO", "EXPRESSION", "AGENT", "INNER_LIST", "LIST", YY_NULLPTR
 };
 
 static const char *
@@ -1091,8 +1095,20 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 2: /* PROGRAM: %empty  */
+#line 39 "parser.ypp"
+                     {(yyval.prog) = new pgm(); root = (yyval.prog);}
+#line 1102 "parser.tab.cpp"
+    break;
 
-#line 1096 "parser.tab.c"
+  case 3: /* PROGRAM: STATEMENT_LIST  */
+#line 40 "parser.ypp"
+                        {(yyval.prog) = new pgm(); root = (yyval.prog);}
+#line 1108 "parser.tab.cpp"
+    break;
+
+
+#line 1112 "parser.tab.cpp"
 
       default: break;
     }
@@ -1286,4 +1302,4 @@ yyreturn:
   return yyresult;
 }
 
-#line 65 "parser.y"
+#line 76 "parser.ypp"

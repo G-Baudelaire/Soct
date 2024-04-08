@@ -1,7 +1,7 @@
 %{
 #include <string.h>
-#include "../bison_files/parser.tab.h"
-
+#include "../abstract_syntax_tree/nodes.h"
+#include "../bison_files/parser.tab.hpp"
 %}
 
 %option noyywrap

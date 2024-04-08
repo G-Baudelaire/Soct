@@ -3,10 +3,20 @@
 //
 
 %{
-extern int yylex(void);
+#include "../abstract_syntax_tree/nodes.h"
+
+using namespace std;
+pgm *root;
 extern int yyerror(char *s);
+extern int yylex(void);
 
 %}
+
+%start PROGRAM
+
+%union {
+  pgm *prog;
+}
 
 %token CHANNEL
 %token RUN
@@ -22,15 +32,16 @@ extern int yyerror(char *s);
 %token REPLICATED_RECEIVE
 %token RECEIVE
 %left COMPOSITION         /* Specify left associativity for '|' */
+%type <prog> PROGRAM
 
 %%/* Grammar rules and actions follow */
 
-PROGRAM: /* empty */
-       | INPUT
+PROGRAM: /* empty */ {$$ = new pgm(); root = $$;}
+       | STATEMENT_LIST {$$ = new pgm(); root = $$;}
 ;
 
-INPUT: RUN EXPRESSION
-     | INPUT RUN EXPRESSION
+STATEMENT_LIST: RUN EXPRESSION
+     | STATEMENT_LIST RUN EXPRESSION
 ;
 
 INACTION: LPARENTHESES RPARENTHESES

@@ -1,3 +1,2 @@
 rm soct.exe
-
-gcc -o soct bison_files\parser.tab.c flex_files\lex.yy.c src\main.c
+g++ --std=c++14 -o soct bison_files\parser.tab.cpp flex_files\lex.yy.c src\main.cpp -I abstract_syntax_tree
