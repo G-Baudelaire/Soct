@@ -4,9 +4,11 @@
 
 %{
 #include "../abstract_syntax_tree/nodes.h"
+#include <list>
 
 using namespace std;
 Program *root;
+list<Channel*> *channel_list;
 extern int yyerror(char *s);
 extern int yylex(void);
 
@@ -15,13 +17,25 @@ extern int yylex(void);
 %start PROGRAM
 
 %union {
-  Program *prog;
+char *channel_id;
+Agent *agent;
+SoloObjects *solo_objects;
+Inaction *inaction;
+Solo *solo;
+Send *send;
+Receive *receive;
+ReplicatedReceive *replicated_receive;
+Composition *composition;
+Bind *bind;
+Match *match;
+list<Channel *> *channels;
+list<Agent *> *agents;
+Program *program;
 }
 
 %token CHANNEL
 %token RUN
 %token BIND
-%token PRINT
 %token COMMA
 %token MATCH
 %token LPARENTHESES
@@ -32,45 +46,72 @@ extern int yylex(void);
 %token REPLICATED_RECEIVE
 %token RECEIVE
 %left COMPOSITION         /* Specify left associativity for '|' */
-%type <prog> PROGRAM
+
+/* types */
+%type <channel_id> CHANNEL
+%type <agent> AGENT
+%type <agent> EXPRESSION
+%type <solo_objects> SOLO_OBJECTS
+%type <inaction> INACTION
+%type <solo> SOLO
+%type <send> SEND
+%type <receive> RECEIVE
+%type <replicated_receive> REPLICATED_RECEIVE
+%type <composition> COMPOSITION
+%type <bind> BIND
+%type <match> MATCH
+%type <channels> INNER_LIST
+%type <channels> LIST
+%type <agents> EXPRESSION_LIST
+%type <program> PROGRAM
 
 %%/* Grammar rules and actions follow */
 
-PROGRAM: /* empty */ {$$ = new Program(); root = $$;}
-       | STATEMENT_LIST {$$ = new Program(); root = $$;}
+PROGRAM: /* empty */ { printf("Program Start:\n");
+                       $$ = new Program(new list<Agent *>());
+                       root = $$; }
+       | EXPRESSION_LIST { printf("Program Start:\n");
+                           $$ = new Program($1);
+                           root = $$; }
 ;
 
-STATEMENT_LIST: RUN EXPRESSION
-     | STATEMENT_LIST RUN EXPRESSION
+EXPRESSION_LIST: RUN EXPRESSION { $$ = new list<Agent *>();
+                                  $$->push_back($2); }
+               | EXPRESSION_LIST RUN EXPRESSION { $$ = $1;
+                                                 $$->push_back($3); }
 ;
 
-INACTION: LPARENTHESES RPARENTHESES
+INACTION: LPARENTHESES RPARENTHESES { $$ = new Inaction(); }
 ;
 
-SOLO_OBJECT: LIST
-           | CHANNEL
+SOLO_OBJECTS: LIST { $$ = new SoloObjects($1); }
+            | CHANNEL { channel_list = new list<Channel *>();
+                        channel_list->push_back(new Channel($1));
+                        $$ = new SoloObjects(channel_list);}
 ;
 
-SOLO: CHANNEL SEND SOLO_OBJECT
-    | CHANNEL RECEIVE SOLO_OBJECT
-    | CHANNEL REPLICATED_RECEIVE SOLO_OBJECT
+SOLO: CHANNEL SEND SOLO_OBJECTS { $$ = new Send(new Channel($1), $3); }
+    | CHANNEL RECEIVE SOLO_OBJECTS { $$ = new Receive(new Channel($1), $3); }
+    | CHANNEL REPLICATED_RECEIVE SOLO_OBJECTS { $$ = new ReplicatedReceive(new Channel($1), $3); }
 ;
 
-EXPRESSION: LPARENTHESES AGENT RPARENTHESES
+EXPRESSION: LPARENTHESES AGENT RPARENTHESES { $$ = $2; }
 ;
 
-AGENT: INACTION
-     | SOLO
-     | AGENT COMPOSITION AGENT
-     | BIND LIST EXPRESSION
-     | MATCH LIST LIST EXPRESSION
+AGENT: INACTION { $$ = $1; }
+     | SOLO { $$ = $1; }
+     | AGENT COMPOSITION AGENT { $$ = new Composition($1,$3); }
+     | BIND LIST EXPRESSION { $$ = new Bind($2, $3); }
+     | MATCH LIST LIST EXPRESSION { $$ = new Match($2, $3, $4); }
 ;
 
-INNER_LIST: CHANNEL
-          | INNER_LIST COMMA CHANNEL
+INNER_LIST: CHANNEL { $$ = new list<Channel *>();
+                      $$ ->push_back(new Channel($1)); }
+          | INNER_LIST COMMA CHANNEL { $$ = $1;
+                                       $1->push_back(new Channel($3)); }
 ;
 
-LIST: LBRACKET RBRACKET
-    | LBRACKET INNER_LIST RBRACKET
+LIST: LBRACKET RBRACKET { $$ = new list<Channel*>(); }
+    | LBRACKET INNER_LIST RBRACKET { $$ = $2; }
 ;
 %%
